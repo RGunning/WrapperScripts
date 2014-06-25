@@ -1,0 +1,92 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		B390E41E195AFBD600652A4D /* sailfishdirectorymake.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = sailfishdirectorymake.sh; path = ../sailfishdirectorymake.sh; sourceTree = "<group>"; };
+		B390E41F195AFBD600652A4D /* sailfishindex.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = sailfishindex.sh; path = ../sailfishindex.sh; sourceTree = "<group>"; };
+		B390E420195AFBD600652A4D /* sailfishpipeline.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = sailfishpipeline.sh; path = ../sailfishpipeline.sh; sourceTree = "<group>"; };
+		B390E421195AFBD600652A4D /* sailfishquantarray.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = sailfishquantarray.sh; path = ../sailfishquantarray.sh; sourceTree = "<group>"; };
+		B390E423195AFBF100652A4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text; name = Base; path = ../Base.lproj/README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		B390E417195AFBCB00652A4D = {
+			isa = PBXGroup;
+			children = (
+				B390E422195AFBF100652A4D /* README.md */,
+				B390E41E195AFBD600652A4D /* sailfishdirectorymake.sh */,
+				B390E41F195AFBD600652A4D /* sailfishindex.sh */,
+				B390E420195AFBD600652A4D /* sailfishpipeline.sh */,
+				B390E421195AFBD600652A4D /* sailfishquantarray.sh */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		B390E418195AFBCB00652A4D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
+			buildConfigurationList = B390E41B195AFBCB00652A4D /* Build configuration list for PBXProject "SailfishWrapper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B390E417195AFBCB00652A4D;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXVariantGroup section */
+		B390E422195AFBF100652A4D /* README.md */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B390E423195AFBF100652A4D /* Base */,
+			);
+			name = README.md;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B390E41C195AFBCB00652A4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		B390E41D195AFBCB00652A4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B390E41B195AFBCB00652A4D /* Build configuration list for PBXProject "SailfishWrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B390E41C195AFBCB00652A4D /* Debug */,
+				B390E41D195AFBCB00652A4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B390E418195AFBCB00652A4D /* Project object */;
+}
