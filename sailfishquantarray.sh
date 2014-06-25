@@ -9,14 +9,13 @@
 ## Variables
 Sailfishdir="/lustre/scratch109/sanger/rg12/Sailfish"
 homedir="/nfs/users/nfs_r/rg12"
-echo $homedir
+
 # When submitted via LSF the following environment variable
 # will be set to tell us our array number.
 #$LSB_JOBINDEX
 
-
-#line=$(sed -n '$LSB_JOBINDEXp' $homedir/RNAseq_data)
-#echo $line
+line=$(sed -n -e ${LSB_JOBINDEX}p $homedir/RNAseq_data)
+echo $line
 
 # PATH to HMMER
 #HMMERPATH=/software/isg/farm-course/hmmer/bin
