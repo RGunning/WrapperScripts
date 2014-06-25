@@ -44,7 +44,8 @@ line=$(sed -n -e ${LSB_JOBINDEX}p $homedir/RNAseq_data)
 
 ############ Main script
 
-file=$(echo $line | cut -f 1 -d " ");
+filenameloc=$(echo $line |cut -f 1 -d " " );
+file=$(echo $filename | cut -f 6 -d "/");
 strain=$(echo $line | cut -f 4 -d " " | cut -d '_' -f2);
 cell=$(echo $line | cut -f 4 -d " " | cut -d '_' -f1);
 sex=$(echo $line | cut -f 4 -d " " | cut -d '_' -f3);
@@ -56,24 +57,25 @@ then strain2=B
 fi
 
 # Check file structure
-mkdir $dir/sailfish_index/Quantification/$strain/ || exit 1
-mkdir $dir/sailfish_index/Quantification/$strain/$cell || exit 1
-mkdir $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file || exit 1
-mkdir $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/transcriptome || exit 1
-mkdir $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ || exit 1
-mkdir $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/NONCODE/ || exit 1
+mkdir $Sailfishdir/Quantification/$strain/ || exit 1
+mkdir $Sailfishdir/Quantification/$strain/$cell || exit 1
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file || exit 1
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome || exit 1
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ || exit 1
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ || exit 1
 
 # make sure output directory is empty
-rm $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/transcriptome/* || exit 1
-rm $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* || exit 1
-rm $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/NONCODE/* || exit 1
+rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/* || exit 1
+rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* || exit 1
+rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/* || exit 1
 
+# Run 3 sailfish instances
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
 
-sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$dir/$file fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$dir/$file fasta=0  F=/dev/null|fastx_trimmer -f 2)
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome_NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
 
-sailfish quant -p 12 -i $dir/sailfish_index/index/$strain2/transcriptome_NONCODE/ -o $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -F <(bamtofastq filename=$dir/$file fasta=0 F2=/dev/null|fastx_trimmer -f 2) -R <(bamtofastq filename=$dir/$file fasta=0  F=/dev/null|fastx_trimmer -f 2)
+sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
 
-sailfish quant -p 12 -i $dir/sailfish_index/index/NONCODE/ -o $dir/sailfish_index/Quantification/$strain/$cell/$sex/$file/NONCODE/ -F <(bamtofastq filename=$dir/$file fasta=0 F2=/dev/null|fastx_trimmer -f 2) -R <(bamtofastq filename=$dir/$file fasta=0  F=/dev/null|fastx_trimmer -f 2)
 
 ############
 
