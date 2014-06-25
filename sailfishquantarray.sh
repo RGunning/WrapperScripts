@@ -70,15 +70,37 @@ rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* 
 rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/* || exit 1
 
 # Run 3 sailfish instances
-sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) > $tmpoutfile 2> $tmperrfile
 
-sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome_NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome_NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
 
-sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2)
+sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
 
 
 ############
+# Run the job, storing the output on the execution host
+/usr/local/bin/mow $LSB_JOBINDEX > $tmpoutfile 2> $tmperrfile
 
-# $? is a shell variable that is set to the exit code of the
-# last command. Exit with this value.
-exit $?
+# Store the exit code to be used later as the real exit code of the
+# job
+status=$?
+
+if [ $status -eq 0 ]; then
+# Job succeeded
+# Copy the output back to the file server, if it has non-zero
+# size
+if [ -s $tmpoutfile ]; then
+cp $tmpoutfile $outfile
+fi
+fi
+
+# Copy the errors file, if it's there
+if [ -s $tmperrfile ]; then
+cp $tmperrfile $errfile
+fi
+
+# Clean up the temporary files
+rm -f $tmpoutfile $tmperrfile
+
+# Return the real exit status of the job itself
+exit $status
