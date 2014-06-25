@@ -3,41 +3,42 @@ dir="/lustre/scratch109/sanger/rg12/Sailfish"
 
 usage()
 {
-cat << EOF
-usage: $0 options
+	cat << EOF
+	usage: $0 options
 
-This script sets up a file directry tree for Sailfish based on a infile
+	This script sets up a file directry tree for Sailfish based on a infile
 
-OPTIONS:
--h      Show this message
--f      infile
--d      directory
-EOF
+	OPTIONS:
+		-h      Show this message
+		-f      infile
+		-d      directory
+	EOF
 }
+
 while getopts “hf:d:” OPTION
 do
-case $OPTION in
-h)
-usage
-exit 1
-;;
-f)
-file=$OPTARG
-;;
-d)
-dir=$OPTARG
-;;
-?)
-usage
-exit
-;;
-esac
+	case $OPTION in
+		h)
+			usage
+			exit 1
+			;;
+		f)
+			file=$OPTARG
+			;;
+		d)
+			dir=$OPTARG
+			;;
+		?)
+			usage
+			exit
+			;;
+	esac
 done
 
 if [[ -z $file ]]
 then
-usage
-exit 1
+		usage
+		exit 1
 fi
 
 while IFS= read -r line; do
