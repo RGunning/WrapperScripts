@@ -20,7 +20,7 @@ QUERY=/software/isg/farm-course/hmmer/data
 # Execute hmmer on our query.
 # Choose the query by our LSF job index.
 echo $LSB_JOBINDEX
-#$HMMERPATH/hmmpfam $DB/Pfam_ls $QUERY/fa.$LSB_JOBINDEX
+$HMMERPATH/hmmpfam $DB/Pfam_ls $QUERY/fa.$LSB_JOBINDEX
 # $? is a shell variable that is set to the exit code of the
 # last command. Exit with this value.
 exit $?
