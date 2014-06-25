@@ -35,7 +35,7 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 			};
-			buildConfigurationList = B34352BF195AECCA00A014CF /* Build configuration list for PBXProject "Sailfish Wrappers" */;
+			buildConfigurationList = B34352BF195AECCA00A014CF /* Build configuration list for PBXProject "SailfishWrappers" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -78,7 +78,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B34352BF195AECCA00A014CF /* Build configuration list for PBXProject "Sailfish Wrappers" */ = {
+		B34352BF195AECCA00A014CF /* Build configuration list for PBXProject "SailfishWrappers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B34352C0195AECCA00A014CF /* Debug */,
