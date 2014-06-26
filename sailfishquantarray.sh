@@ -19,6 +19,48 @@
 Sailfishdir="/lustre/scratch109/sanger/rg12/Sailfish"
 homedir="/nfs/users/nfs_r/rg12"
 threads=12
+RNAseqlist=$homedir/RNAseq_data
+
+usage()
+{
+    cat << EOF
+    usage: $0 options
+
+    This wrapper script runs sailfish quantification as a LSF job array
+
+    OPTIONS:
+        -h      Show this message
+        -s      sailfish root directory
+        -d      homedirectory
+        -r      File list
+        -p      threads
+    EOF
+}
+while getopts “hs:d:r:p:” OPTION
+do
+    case $OPTION in
+        h)
+            usage
+            exit 1
+            ;;
+        s)
+            Sailfishdir=$OPTARG
+            ;;
+        d)
+            homedir=$OPTARG
+            ;;
+        r)
+            RNAseqlist=$OPTARG
+            ;;
+        p)
+            threads=$OPTARG
+            ;;
+        ?)
+            usage
+            exit
+            ;;
+    esac
+done
 
 
 # Work out the output hash directory
@@ -40,7 +82,7 @@ errfile=$outfile.err
 # will be set to tell us our array number.
 #$LSB_JOBINDEX
 
-line=$(sed -n -e ${LSB_JOBINDEX}p $homedir/RNAseq_data)
+line=$(sed -n -e ${LSB_JOBINDEX}p $RNAseqlist)
 
 ############ Main script
 
@@ -78,8 +120,7 @@ sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quan
 
 
 ############
-# Run the job, storing the output on the execution host
-/usr/local/bin/mow $LSB_JOBINDEX > $tmpoutfile 2> $tmperrfile
+
 
 # Store the exit code to be used later as the real exit code of the
 # job
