@@ -24,17 +24,17 @@ RNAseqlist=$homedir/RNAseq_data
 usage()
 {
     cat << EOF
-    usage: $0 options
+usage: $0 options
+    
+This wrapper script runs sailfish quantification as a LSF job array
 
-    This wrapper script runs sailfish quantification as a LSF job array
-
-    OPTIONS:
-        -h      Show this message
-        -s      sailfish root directory
-        -d      homedirectory
-        -r      File list
-        -p      threads
-    EOF
+OPTIONS:
+-h      Show this message
+-s      sailfish root directory
+-d      homedirectory
+-r      File list
+-p      threads
+EOF
 }
 while getopts “hs:d:r:p:” OPTION
 do
