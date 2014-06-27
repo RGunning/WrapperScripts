@@ -111,11 +111,11 @@ rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/*
 rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* 
 rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/* 
 # Run 3 sailfish instances
-sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) > $tmpoutfile 2> $tmperrfile
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=U" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) > $tmpoutfile 2> $tmperrfile
 
-sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome_NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
+sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome_NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ -l "T=PE:O=><:S=U" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
 
-sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
+sailfish quant -p $threads -i $Sailfishdir/Indexes/NONCODE/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ -l "T=PE:O=><:S=U" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) >> $tmpoutfile 2>> $tmperrfile
 
 
 ############
