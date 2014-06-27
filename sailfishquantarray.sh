@@ -87,30 +87,29 @@ line=$(sed -n -e ${LSB_JOBINDEX}p $RNAseqlist)
 ############ Main script
 
 filenameloc=$(echo $line |cut -f 1 -d " " );
-file=$(echo $filename | cut -f 6 -d "/");
+file=$(echo $filenameloc | cut -f 6 -d "/");
 strain=$(echo $line | cut -f 4 -d " " | cut -d '_' -f2);
 cell=$(echo $line | cut -f 4 -d " " | cut -d '_' -f1);
 sex=$(echo $line | cut -f 4 -d " " | cut -d '_' -f3);
 
 if [ $strain == "CB" ] || [ $strain == "C" ]
 then strain2=C
-elif [$strain == "BC" ] || [ $strain == "B" ]
+elif [ $strain == "BC" ] || [ $strain == "B" ]
 then strain2=B
 fi
 
 # Check file structure
-mkdir $Sailfishdir/Quantification/$strain/ || exit 1
-mkdir $Sailfishdir/Quantification/$strain/$cell || exit 1
-mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file || exit 1
-mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome || exit 1
-mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ || exit 1
-mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/ || exit 1
+mkdir $Sailfishdir/Quantification/$strain/
+mkdir $Sailfishdir/Quantification/$strain/$cell
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file 
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/ 
+mkdir $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/
 
 # make sure output directory is empty
-rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/* || exit 1
-rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* || exit 1
-rm $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/* || exit 1
-
+rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/* 
+rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome_NONCODE/* 
+rm -R $Sailfishdir/Quantification/$strain/$cell/$sex/$file/NONCODE/* 
 # Run 3 sailfish instances
 sailfish quant -p $threads -i $Sailfishdir/Indexes/$strain2/transcriptome/ -o $Sailfishdir/Quantification/$strain/$cell/$sex/$file/transcriptome/ -l "T=PE:O=><:S=SA" -1 <(bamtofastq filename=$filenameloc fasta=0 F2=/dev/null|fastx_trimmer -f 2) -2 <(bamtofastq filename=$filenameloc fasta=0  F=/dev/null|fastx_trimmer -f 2) > $tmpoutfile 2> $tmperrfile
 
